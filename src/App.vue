@@ -11,9 +11,10 @@ export default {
       flatPrice: "df",
       message: "Список квартир",
       flats: [
-        { name: "1k", price: "15" },
-        { name: "2к", price: "20" },
-        { name: "3к", price: "30" },
+        // { name: "1k", price: "15" },
+        // { name: "2к", price: "20"},
+        // { name: "3к", price: "30"},
+        // { name: "", price: ""},
       ],
     };
   },
@@ -21,12 +22,15 @@ export default {
     addFlat() {
       const flat = { name: this.flatName, price: this.flatPrice };
       this.flats.push(flat);
-      this.flatName = "";
-      this.flatPrice = "";
     },
-    deleteFlat(flt) {
+    deleteFlat(removingFlat) {
       // let flat = { name: this.flatName, price: this.flatPrice };
-      this.flats = this.flats.filter((el) => el != flt);
+      this.flats = this.flats.filter((el) => el != removingFlat);
+    },
+  },
+  computed: {
+    description() {
+      return `${this.flatName} квартира вартує ${this.flatPrice} тисяч доларів`;
     },
   },
 };
@@ -37,22 +41,29 @@ export default {
 // тобто v-bind видаляємо та залишаємо :
 </script>
 <template>
-  <div>
-    <ul>
+  <div class="component-cover">
+    <ul class="flats-list">
       <li>
         <input class="logo" v-model="flatName" type="text" />
       </li>
       <li>
         <input class="logo" v-model="flatPrice" type="text" />
       </li>
+      <li>У масив додасться: {{ description }}</li>
+      <li>
+        <input class="logo" :value="description" type="text" />
+      </li>
+
       <li class="logo vue" v-for="flat in flats" :key="flat">
         {{ `${flat.name} квартира вартує ${flat.price} тисяч доларів` }}
+				<br>
+        {{ description }}
         <button type="button" @click="deleteFlat(flat)">Del</button>
       </li>
     </ul>
     <!-- <p>{{ flatName }}</p> -->
     <!-- <p>{{ flatPrice }}</p> -->
-    <button class="logo vue" type="button" @click="addFlat">
+    <button class="logo vue add-button" type="button" @click="addFlat">
       Press to Add
     </button>
     <!-- <button class="logo vue" type="button" @click="deleteFlat()">
@@ -65,7 +76,6 @@ ul {
   list-style: none;
 }
 .logo {
-  height: 1.2;
   padding: 0.5em;
   border: 2px solid #646cffaa;
   border-radius: 1em;
