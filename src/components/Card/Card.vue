@@ -26,7 +26,7 @@ export default {
 };
 </script>
 <template>
-  <div>
+  <div class="border">
     <p class="text" @click="incrementCount">
       You clicked me "{{ count }}" times
     </p>
@@ -34,6 +34,10 @@ export default {
   </div>
 </template>
 <style scoped>
+	.border {
+		border: 2px solid mediumaquamarine;
+		border-radius: 2vw;
+	}
 .text {
   font-size: 20px;
   color: tomato;
